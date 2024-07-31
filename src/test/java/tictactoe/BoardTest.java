@@ -28,8 +28,26 @@ public class BoardTest {
                         """, "X has won!"),
 
                 Arguments.of("""
+                        ___
+                        XXX
+                        ___
+                        """, "X has won!"),
+
+                Arguments.of("""
+                        ___
+                        ___
+                        XXX
+                        """, "X has won!"),
+
+                Arguments.of("""
                         OOO
                         ___
+                        ___
+                        """, "O has won!"),
+
+                Arguments.of("""
+                        ___
+                        OOO
                         ___
                         """, "O has won!")
                 );
