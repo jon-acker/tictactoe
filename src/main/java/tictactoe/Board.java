@@ -1,16 +1,17 @@
 package tictactoe;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Board {
-    private Grid grid;
+    private final Grid grid;
 
     public Board(String boardRepresentation) {
-        this.grid = new Grid(Arrays.stream(boardRepresentation.split("\\n")).map(s -> s.split("")).toList());
+        this.grid = new Grid(
+                Stream.of(boardRepresentation.split("\\n"))
+                .map(s -> Arrays.stream(s.split("")).toList()).toList()
+        );
     }
 
     public static Board fromString(String boardRepresentation) {
@@ -18,19 +19,21 @@ public class Board {
     }
 
     public Winner determineWinner() {
-        return getCompleted(grid)
+        return getCompletedPlayer(grid)
                 .map(winner -> winner.equals("O") ?
                         new WinnerO() :
                         new WinnerX()
                 )
-                .orElseGet(WinnerNone::new);
+                .orElseGet(() -> {
+                    return new WinnerNone();
+                });
     }
 
 
-    private Optional<String> getCompleted(Grid grid) {
+    private Optional<String> getCompletedPlayer(Grid grid) {
 
         return Stream.of("X", "O")
-                .filter(symbol -> (grid.hasCompletedColumn(symbol) || grid.hasCompletedRow(symbol)))
+                .filter(symbol -> grid.hasAnyCompletedColumn(symbol) || grid.hasAnyCompletedRow(symbol))
                 .findFirst();
     }
 }

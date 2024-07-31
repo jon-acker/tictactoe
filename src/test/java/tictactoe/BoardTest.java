@@ -91,7 +91,12 @@ public class BoardTest {
                         __O
                         __O
                         __O
-                        """, "O has won!")
+                        """, "O has won!"),
+                Arguments.of("""
+                        OXX
+                        XOO
+                        _OX
+                        """, "It's a draw!")
                 );
     }
 
