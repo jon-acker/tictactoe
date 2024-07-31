@@ -73,6 +73,12 @@ public class BoardTest {
                         ___
                         ___
                         OOO
+                        """, "O has won!"),
+
+                Arguments.of("""
+                        O__
+                        O__
+                        O__
                         """, "O has won!")
                 );
     }

@@ -16,21 +16,26 @@ public class Board {
     }
 
     public Winner determineWinner() {
-        if (hasCompletedRow(grid, "O"))
+        if (getCompleted(grid) == "O")
             return new WinnerO();
 
-        if (hasCompletedColumn(grid, "X")) {
-            return new WinnerX();
-        }
-
-        if (hasCompletedRow(grid, "X"))
+        if (getCompleted(grid) == "X")
             return new WinnerX();
 
         return new WinnerNone();
     }
 
-    private boolean hasCompletedRow(List<String[]> grid, String symbol) {
-        return grid.stream().anyMatch(row -> rowIsComplete(row, symbol));
+
+    private String getCompleted(List<String[]> grid) {
+        if (hasCompletedColumn(grid, "X") || hasCompletedRow(grid, "X")) {
+            return "X";
+        }
+
+        if (hasCompletedColumn(grid, "O") || hasCompletedRow(grid, "O")) {
+            return "O";
+        }
+
+        return null;
     }
 
     private boolean hasCompletedColumn(List<String[]> grid, String symbol) {
@@ -39,9 +44,11 @@ public class Board {
         );
     }
 
+    private boolean hasCompletedRow(List<String[]> grid, String symbol) {
+        return grid.stream().anyMatch(row -> rowIsComplete(row, symbol));
+    }
+
     private boolean rowIsComplete(String[] row, String symbol) {
         return Arrays.stream(row).allMatch(s -> s.equals(symbol));
     }
-
-
 }
