@@ -15,31 +15,19 @@ public class Board {
     }
 
     public Winner determineWinner() {
-        if (isComplete(0, "O")) {
+        if (grid.stream().anyMatch(row -> isComplete(row, "O"))) {
             return new WinnerO();
         }
 
-        if (isComplete(1, "O")) {
-            return new WinnerO();
-        }
-
-        if (isComplete(1, "X")) {
+        if (grid.stream().anyMatch(row -> isComplete(row, "X"))) {
             return new WinnerX();
         }
 
-        if (isComplete(2, "X")) {
-            return new WinnerX();
-        }
-
-        if (Arrays.equals(grid.get(0), new String[]{"_", "_", "_"})) {
-            return new WinnerNone();
-        }
-
-        return new WinnerX();
+        return new WinnerNone();
     }
 
-    private boolean isComplete(int row, String symbol) {
-        return Arrays.stream(grid.get(row)).allMatch(s -> s.equals(symbol));
+    private boolean isComplete(String[] row, String symbol) {
+        return Arrays.stream(row).allMatch(s -> s.equals(symbol));
     }
 
 
