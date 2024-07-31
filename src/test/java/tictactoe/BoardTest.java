@@ -79,6 +79,18 @@ public class BoardTest {
                         O__
                         O__
                         O__
+                        """, "O has won!"),
+
+                Arguments.of("""
+                        _O_
+                        _O_
+                        _O_
+                        """, "O has won!"),
+
+                Arguments.of("""
+                        __O
+                        __O
+                        __O
                         """, "O has won!")
                 );
     }

@@ -2,7 +2,9 @@ package tictactoe;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Board {
     private List<String[]> grid;
@@ -16,26 +18,20 @@ public class Board {
     }
 
     public Winner determineWinner() {
-        if (getCompleted(grid) == "O")
-            return new WinnerO();
-
-        if (getCompleted(grid) == "X")
-            return new WinnerX();
-
-        return new WinnerNone();
+        return getCompleted(grid)
+                .map(winner -> winner.equals("O") ?
+                        new WinnerO() :
+                        new WinnerX()
+                )
+                .orElseGet(WinnerNone::new);
     }
 
 
-    private String getCompleted(List<String[]> grid) {
-        if (hasCompletedColumn(grid, "X") || hasCompletedRow(grid, "X")) {
-            return "X";
-        }
+    private Optional<String> getCompleted(List<String[]> grid) {
 
-        if (hasCompletedColumn(grid, "O") || hasCompletedRow(grid, "O")) {
-            return "O";
-        }
-
-        return null;
+        return Stream.of("X", "O")
+                .filter(symbol -> (hasCompletedColumn(grid, symbol) || hasCompletedRow(grid, symbol)))
+                .findFirst();
     }
 
     private boolean hasCompletedColumn(List<String[]> grid, String symbol) {
