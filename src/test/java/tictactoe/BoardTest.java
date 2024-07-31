@@ -40,6 +40,12 @@ public class BoardTest {
                         """, "X has won!"),
 
                 Arguments.of("""
+                        X__
+                        X__
+                        X__
+                        """, "X has won!"),
+
+                Arguments.of("""
                         OOO
                         ___
                         ___
@@ -49,6 +55,12 @@ public class BoardTest {
                         ___
                         OOO
                         ___
+                        """, "O has won!"),
+
+                Arguments.of("""
+                        ___
+                        ___
+                        OOO
                         """, "O has won!")
                 );
     }

@@ -2,6 +2,7 @@ package tictactoe;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Board {
     private List<String[]> grid;
@@ -15,13 +16,14 @@ public class Board {
     }
 
     public Winner determineWinner() {
-        if (grid.stream().anyMatch(row -> isComplete(row, "O"))) {
+        if (grid.stream().anyMatch(row -> isComplete(row, "O")))
             return new WinnerO();
-        }
 
-        if (grid.stream().anyMatch(row -> isComplete(row, "X"))) {
+        if (grid.stream().allMatch(row -> row[0].equals("X")))
             return new WinnerX();
-        }
+
+        if (grid.stream().anyMatch(row -> isComplete(row, "X")))
+            return new WinnerX();
 
         return new WinnerNone();
     }
