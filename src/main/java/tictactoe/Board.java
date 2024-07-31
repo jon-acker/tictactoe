@@ -1,9 +1,7 @@
 package tictactoe;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Board {
     private List<String[]> grid;
@@ -17,10 +15,16 @@ public class Board {
     }
 
     public Winner determineWinner() {
-        if (Arrays.equals(grid.get(0), new String[]{"_", "_", "_"})) {
-            return new Winner("There is no winner yet");
+        if (Arrays.equals(grid.get(0), new String[]{"O", "O", "O"})) {
+            return new WinnerO();
         }
 
-        return new Winner("X has won!");
+        if (Arrays.equals(grid.get(0), new String[]{"_", "_", "_"})) {
+            return new WinnerNone();
+        }
+
+
+
+        return new WinnerX();
     }
 }

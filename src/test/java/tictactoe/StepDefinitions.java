@@ -31,4 +31,10 @@ public class StepDefinitions {
     public void the_board_is_has_one_complete_row_of_x(String boardRepresentation) {
         board = Board.fromString(boardRepresentation);
     }
+
+    @Given("the board is in the state: {string}")
+    public void the_board_is_in_the_state(String boardRepresentation) {
+        // Write code here that turns the phrase above into concrete actions
+        board = Board.fromString(boardRepresentation);
+    }
 }
