@@ -2,7 +2,7 @@ package tictactoe;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 public class Board {
     private List<String[]> grid;
@@ -16,19 +16,30 @@ public class Board {
     }
 
     public Winner determineWinner() {
-        if (grid.stream().anyMatch(row -> isComplete(row, "O")))
+        if (hasCompletedRow(grid, "O"))
             return new WinnerO();
 
-        if (grid.stream().allMatch(row -> row[0].equals("X")))
+        if (hasCompletedColumn(grid, "X")) {
             return new WinnerX();
+        }
 
-        if (grid.stream().anyMatch(row -> isComplete(row, "X")))
+        if (hasCompletedRow(grid, "X"))
             return new WinnerX();
 
         return new WinnerNone();
     }
 
-    private boolean isComplete(String[] row, String symbol) {
+    private boolean hasCompletedRow(List<String[]> grid, String symbol) {
+        return grid.stream().anyMatch(row -> rowIsComplete(row, symbol));
+    }
+
+    private boolean hasCompletedColumn(List<String[]> grid, String symbol) {
+        return IntStream.range(0, grid.size()).anyMatch(
+                i -> grid.stream().allMatch(row -> row[i].equals(symbol))
+        );
+    }
+
+    private boolean rowIsComplete(String[] row, String symbol) {
         return Arrays.stream(row).allMatch(s -> s.equals(symbol));
     }
 
