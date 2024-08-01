@@ -27,6 +27,6 @@ public class Grid {
     }
 
     public boolean isFull() {
-        return grid.stream().anyMatch(g -> g.contains("_"));
+        return grid.stream().noneMatch(g -> g.contains("_"));
     }
 }

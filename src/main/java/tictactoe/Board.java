@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class Board {
-    public Grid grid;
+    private final Grid grid;
 
     public Board(String boardRepresentation) {
         this.grid = new Grid(
@@ -28,10 +28,10 @@ public class Board {
                 )
                 .orElseGet(() -> {
                     if (board.isFull()) {
-                        return new WinnerNone();
+                        return new Draw();
                     }
 
-                    return new Draw();
+                    return new WinnerNone();
                 });
     }
 
