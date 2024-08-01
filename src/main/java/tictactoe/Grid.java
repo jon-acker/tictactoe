@@ -1,7 +1,8 @@
 package tictactoe;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntPredicate;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 public class Grid {
@@ -13,17 +14,21 @@ public class Grid {
     }
 
     public boolean hasAnyCompletedColumn(String symbol) {
-        return IntStream.range(0, grid.size()).anyMatch(
-                i -> grid.stream().allMatch(row -> row.get(i).equals(symbol))
-        );
+        return IntStream
+                .range(0, grid.size())
+                .anyMatch(columnIsComplete(symbol));
     }
 
     public boolean hasAnyCompletedRow(String symbol) {
-        return grid.stream().anyMatch(row -> rowIsComplete(row, symbol));
+        return grid.stream().anyMatch(rowIsComplete(symbol));
     }
 
-    private boolean rowIsComplete(List<String> row, String symbol) {
-        return row.stream().allMatch(s -> s.equals(symbol));
+    private Predicate<List<String>> rowIsComplete(String symbol) {
+        return row -> row.stream().allMatch(s -> s.equals(symbol));
+    }
+
+    private IntPredicate columnIsComplete(String symbol) {
+        return col -> grid.stream().allMatch(row -> row.get(col).equals(symbol));
     }
 
     public boolean isFull() {
