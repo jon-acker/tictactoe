@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class Grid extends ArrayList<List<String>> {
+public class Grid {
 
     private final List<List<String>> grid;
 
@@ -24,5 +24,9 @@ public class Grid extends ArrayList<List<String>> {
 
     private boolean rowIsComplete(List<String> row, String symbol) {
         return row.stream().allMatch(s -> s.equals(symbol));
+    }
+
+    public boolean isFull() {
+        return grid.stream().anyMatch(g -> g.contains("_"));
     }
 }

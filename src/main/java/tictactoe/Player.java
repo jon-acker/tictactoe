@@ -1,9 +1,9 @@
 package tictactoe;
 
-public class Winner {
+public class Player {
     private final String message;
 
-    public Winner(String message) {
+    public Player(String message) {
         this.message = message;
     }
 

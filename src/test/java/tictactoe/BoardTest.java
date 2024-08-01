@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tictactoe.Board.determineWinner;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BoardTest {
@@ -95,7 +96,7 @@ public class BoardTest {
                 Arguments.of("""
                         OXX
                         XOO
-                        _OX
+                        OOX
                         """, "It's a draw!")
                 );
     }
@@ -104,6 +105,6 @@ public class BoardTest {
     @ParameterizedTest
     @MethodSource("boardExamples")
     void testSumTextBlock(String board, String expectedResponse) {
-        assertEquals(expectedResponse, Board.fromString(board).determineWinner().message());
+        assertEquals(expectedResponse, determineWinner(Board.fromString(board)).message());
     }
 }
