@@ -59,6 +59,17 @@ public class BoardTest {
                         """, "X has won!"),
 
                 Arguments.of("""
+                        X__
+                        _X_
+                        __X
+                        """, "X has won!"),
+
+                Arguments.of("""
+                        __X
+                        _X_
+                        X__
+                        """, "X has won!"),
+                Arguments.of("""
                         OOO
                         ___
                         ___

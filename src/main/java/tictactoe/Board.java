@@ -43,7 +43,11 @@ public class Board {
     private static Optional<String> getCompletedPlayer(Grid grid) {
 
         return Stream.of("X", "O")
-                .filter(symbol -> grid.hasAnyCompletedColumn(symbol) || grid.hasAnyCompletedRow(symbol))
+                .filter(symbol ->
+                        grid.hasAnyCompletedColumn(symbol) ||
+                        grid.hasAnyCompletedRow(symbol) ||
+                        grid.hasAnyCompletedDiagonal(symbol)
+                )
                 .findFirst();
     }
 }

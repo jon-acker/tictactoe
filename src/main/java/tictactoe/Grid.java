@@ -13,6 +13,26 @@ public class Grid {
         this.grid = grid;
     }
 
+    public boolean hasAnyCompletedDiagonal(String symbol) {
+        return forwardDiagonalComplete(symbol) || backwardDiagonalComplete(symbol);
+    }
+
+    private boolean forwardDiagonalComplete(String symbol) {
+        boolean result = true;
+        for (int i = 0; i < grid.size(); i++) {
+            result &= grid.get(i).get(i).equals(symbol);
+        }
+        return result;
+    }
+
+    private boolean backwardDiagonalComplete(String symbol) {
+        boolean result = true;
+        for (int i = 0; i < grid.size(); i++) {
+            result &= grid.get(i).get(grid.size() - 1 - i).equals(symbol);
+        }
+        return result;
+    }
+
     public boolean hasAnyCompletedColumn(String symbol) {
         return IntStream
                 .range(0, grid.size())
